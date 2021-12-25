@@ -11,6 +11,7 @@
 import axios from 'axios';
 import Vue from 'vue';
 import eventBus from '@/eventBus';
+import { IModalParams, PersonData } from './types';
 
 export default Vue.extend({
   name: 'App',
@@ -61,7 +62,7 @@ export default Vue.extend({
       }
     },
 
-    openModal(params: object, modalTarget: string): void {
+    openModal(params: IModalParams, modalTarget: string): void {
       this.isOpenModal = true;
       this.params = params;
       this.modalTarget = modalTarget;
@@ -75,7 +76,7 @@ export default Vue.extend({
   created() {
     this.getHotelsCount();
     this.loadHotels();
-    eventBus.$on('showSuccesModal', (form: object, modalTarget: string): void => {
+    eventBus.$on('showSuccesModal', (form: PersonData, modalTarget: string): void => {
       this.openModal(form, modalTarget);
     });
   },
