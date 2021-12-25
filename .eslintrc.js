@@ -3,11 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/airbnb',
-    '@vue/typescript/recommended',
-  ],
+  extends: ['plugin:vue/essential', '@vue/airbnb', '@vue/typescript/recommended'],
   parserOptions: {
     ecmaVersion: 2020,
   },
@@ -16,5 +12,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     indent: ['warn', 2],
     quotes: ['warn', 'single', { avoidEscape: true }],
+    'arrow-parens': ['warn', 'as-needed'],
+    '@typescript-eslint/ban-types': ['warn'],
   },
 };
