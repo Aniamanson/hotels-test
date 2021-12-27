@@ -1,5 +1,7 @@
 # hotels-test
 
+https://aniamanson.github.io/hotels-test/index.html
+
 ## Project setup
 ```
 npm install
