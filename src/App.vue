@@ -1,6 +1,6 @@
 <template>
   <div class="body-wrapper">
-    <Modal v-if="isOpenModal" :open-target="modalTarget" :params="params" @close="closeModal" />
+    <Modal v-if="isOpenModal" :open-target="modalTarget" @close="closeModal" />
     <div class="main-container">
       <router-view />
     </div>
@@ -11,11 +11,13 @@
 import axios from 'axios';
 import Vue from 'vue';
 import eventBus from '@/eventBus';
-import { IModalParams, PersonData } from './types';
+import Modal from '@/components/Modal.vue';
 
 export default Vue.extend({
   name: 'App',
-  components: {},
+  components: {
+    Modal,
+  },
   data: () => ({
     hotels: null,
     hotelsLoading: false,
@@ -24,7 +26,6 @@ export default Vue.extend({
     visiblePagesCount: 5,
     itemsCount: 0,
     isOpenModal: false,
-    params: {},
     modalTarget: '',
   }),
   computed: {},
@@ -43,7 +44,6 @@ export default Vue.extend({
         .get(`https://jsonplaceholder.typicode.com/posts?_page=${this.page}&_limit=10`)
         .then(response => {
           this.hotels = response.data;
-          console.log(response.data);
         })
         .then(() => {
           this.hotelsLoading = false;
@@ -56,16 +56,13 @@ export default Vue.extend({
 
     closeModal(): void {
       this.isOpenModal = false;
-      const body: HTMLBodyElement | null = document.querySelector('body');
-      if (body) {
-        body.style.overflow = this.isOpenModal ? 'hidden' : 'auto';
-      }
+      document.querySelector('body').style.overflow = this.isOpenModal ? 'hidden' : 'auto';
     },
 
-    openModal(params: IModalParams, modalTarget: string): void {
+    openModal(modalTarget: string): void {
       this.isOpenModal = true;
-      this.params = params;
       this.modalTarget = modalTarget;
+      document.querySelector('body').style.overflow = this.isOpenModal ? 'hidden' : 'auto';
     },
   },
   watch: {
@@ -76,8 +73,8 @@ export default Vue.extend({
   created() {
     this.getHotelsCount();
     this.loadHotels();
-    eventBus.$on('showSuccesModal', (form: PersonData, modalTarget: string): void => {
-      this.openModal(form, modalTarget);
+    eventBus.$on('showSuccesModal', (modalTarget: string): void => {
+      this.openModal(modalTarget);
     });
   },
 });
@@ -112,6 +109,9 @@ input {
 
   &-primary {
     background-color: #42b983;
+    &:hover {
+      background-color: darken($color: #42b983, $amount: 10);
+    }
   }
 }
 .body-wrapper {

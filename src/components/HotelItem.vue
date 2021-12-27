@@ -1,9 +1,9 @@
 <template>
- <li class="catalog__item">
-    <router-link
-      :to="{name: 'hotel', params: {id: hotel.id}}"
-    >
-      <div class="catalog__img"></div>
+  <li class="catalog__item">
+    <router-link :to="{ name: 'hotel', params: { id: hotel.id } }">
+      <div class="catalog__img">
+        <img src="img/hotel.jpg" alt="отель" />
+      </div>
       <h3 class="catalog__title">
         {{ hotel.title }}
       </h3>
@@ -26,7 +26,6 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-
 .catalog {
   &__item {
     a {
@@ -40,7 +39,8 @@ export default Vue.extend({
   &__text {
     color: #222;
   }
-  &__text, &__title {
+  &__text,
+  &__title {
     &:first-letter {
       text-transform: uppercase;
     }
@@ -50,6 +50,13 @@ export default Vue.extend({
     height: 200px;
     background: rgb(221, 230, 219);
     border-radius: 10px;
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      object-position: center;
+    }
   }
 }
 </style>

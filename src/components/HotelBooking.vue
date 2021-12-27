@@ -53,8 +53,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import axios from 'axios';
-import { PersonData } from '@/types';
-// import errors from '@/data/errors';
+import eventBus from '@/eventBus';
 
 export default Vue.extend({
   name: 'HotelBooking',
@@ -73,20 +72,18 @@ export default Vue.extend({
       const form = e.target;
 
       if (this.form.name !== '' && this.form.email !== '' && this.form.tel !== '') {
-        axios
-          .post('/#', {
-            body: new FormData(form),
-          })
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        // axios
+        //   .post('/#', {
+        //     body: new FormData(form),
+        //   })
+        //   .then(response => {
+        //     console.log(response);
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   });
 
-        const formInfo: PersonData = this.form;
-        formInfo.hotelId = this.hotelId;
-        this.$emit('showSuccesModal', formInfo);
+        eventBus.$emit('showSuccesModal', 'SuccesModal');
       }
     },
   },
@@ -128,6 +125,7 @@ export default Vue.extend({
   &__btn--submit {
     margin-top: 30px;
   }
+
   &__error {
     position: absolute;
     font-size: 14px;
