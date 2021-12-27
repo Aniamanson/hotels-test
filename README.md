@@ -1,6 +1,6 @@
 # hotels-test
 
-https://aniamanson.github.io/hotels-test/index.html
+https://aniamanson.github.io/hotels-test/
 
 ## Project setup
 ```
